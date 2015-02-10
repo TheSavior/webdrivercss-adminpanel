@@ -11,7 +11,7 @@
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown">Choose Regression Repository <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li ng-repeat="(key, value) in repositories"><a href="/regression-tests/{{ key }}">{{ key }}</a></li>
+                        <li ng-repeat="branch in branches"><a href="/regression-tests/{{ branch }}">{{ branch }}</a></li>
                     </ul>
                 </li>
             </ul>

@@ -9,12 +9,13 @@ var api = require('./controllers/api'),
 module.exports = function(app) {
 
     // Server API Routes
-    app.route('/api/repositories').get(api.getDirectoryList);
-    app.route('/api/repositories/:file').get(api.downloadRepository);
-    app.route('/api/repositories/:project/:file').get(api.getImage);
-    app.route('/api/repositories/:project/diff/:diff').get(api.getImage);
-    app.route('/api/repositories/confirm').post(api.acceptDiff);
-    app.route('/api/repositories/*').post(api.syncImages);
+    app.route('/api/getBranches').get(api.getBranches);
+    app.route('/api/getDiffs').get(api.getDiffs);
+    // app.route('/api/:branchName/:file').get(api.downloadRepository);
+    // app.route('/api/:project/:file').get(api.getImage);
+    // app.route('/api/:project/diff/:diff').get(api.getImage);
+    // app.route('/api/confirm').post(api.acceptDiff);
+    app.route('/api/upload').post(api.syncImages);
 
     // All undefined api routes should return a 404
     app.route('/api/*').get(function(req, res) {
