@@ -15,9 +15,10 @@ var fs = require('fs-extra'),
     glob = require('glob'),
     targz = require('tar.gz'),
     async = require('async'),
-    // readDir = require('../utils/readDir'),
+    readDir = require('../utils/readDir'),
     // imageRepo = path.join(__dirname, '..', '..', '..', 'repositories');
-    imageRepo = path.join(__dirname, '..', '..', 'repositories');
+    imageRepo = path.join(__dirname, '..', '..', 'repositories'),
+    mainBranch = 'master';
 
 exports.syncImages = function(req, res) {
 
@@ -53,9 +54,6 @@ exports.syncImages = function(req, res) {
 };
 
 exports.getBranches = function(req, res) {
-    var mainBranch = 'master';
-
-
     fs.readdir(imageRepo, function(err, files) {
         var dirs = [];
 
@@ -67,13 +65,11 @@ exports.getBranches = function(req, res) {
                 }
 
                 if (isLast) {
-                    console.log(dirs);
                     res.send(dirs);
                 }
             });
         };
 
-        console.log(files);
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
             if (file === '.') {
@@ -92,8 +88,24 @@ exports.getDiffs = function(req, res) {
         res.send(500);
     }
 
+    var master = path.join(imageRepo, mainBranch);
+    readDir.getImagesInBranch(master, function(err, images) {
+        if (err) {
+            res.send(500);
+            return;
+        }
 
-    res.send(200);
+        console.log(images);
+        res.send(images);
+    });
+
+
+    // console.log('reading', master);
+    // readDir.listDirectory(master, function(err, dir) {
+    //     console.log(dir);
+    // });
+
+
 };
 
 exports.getImage = function(req, res) {
