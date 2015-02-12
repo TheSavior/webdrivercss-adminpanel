@@ -15,9 +15,9 @@ angular.module('webdrivercssAdminpanelApp', [
         controller: 'MainCtrl',
         resolve: { branches: 'BranchesRepository' }
     }).when('/regression-tests/:branchName', {
-        templateUrl: 'partials/main',
-        controller: 'MainCtrl',
-        resolve: { branches: 'ImageRepository' }
+        templateUrl: 'partials/diffs',
+        controller: 'DiffCtrl',
+        resolve: { images: 'ImageRepository' }
     }).otherwise({
         redirectTo: '/'
     });
