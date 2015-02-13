@@ -39,8 +39,6 @@ module.exports = function(app) {
         app.use(express.static(path.join(config.root, 'dist')));
     }
 
-    app.engine('html', require('ejs').renderFile);
-    app.set('view engine', 'html');
     app.use(morgan('dev'));
     app.use(bodyParser());
     app.use(multipart());
