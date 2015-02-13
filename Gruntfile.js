@@ -94,14 +94,21 @@ module.exports = function(grunt) {
 
     copy: {
       dist: {
-        files: {
-          'dist/index.html': ['src/index.html'],
-          'dist/favicon.ico': ['src/favicon.ico'],
+        files: [{
           'dist/img/webdriverio.png': ['src/img/webdriverio.png'],
-        }
+        }, {
+          expand: true,
+          dot: true,
+          cwd: 'src/',
+          dest: 'dist/',
+          src: [
+            '*.{ico,png}',
+            'index.html',
+            'bower_components/**/*'
+          ]
+        }]
       }
     },
-
 
     // Server stuff
     express: {
