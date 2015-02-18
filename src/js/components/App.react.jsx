@@ -34,7 +34,6 @@ var App = React.createClass({
         <BranchList branches={this.state.branches} />
         <RouteHandler/>
       </div>
-      // <Navbar source={this.state.feed} />
     );
   },
 
