@@ -7,7 +7,7 @@ module.exports = function(grunt) {
       options: {
         transform: ['reactify'],
         browserifyOptions: {
-          extensions: ['.react.jsx']
+          extensions: ['.jsx', '.react.jsx']
         }
       },
 
@@ -16,7 +16,7 @@ module.exports = function(grunt) {
           debug: false,
         },
         files: {
-          'dist/js/main.js': ['src/js/main.js']
+          'dist/js/main.js': ['src/js/main.jsx']
         }
       },
 
@@ -26,7 +26,7 @@ module.exports = function(grunt) {
         },
 
         files: {
-          'dist/js/main.js': ['src/js/main.js']
+          'dist/js/main.js': ['src/js/main.jsx']
         }
       }
     },
@@ -55,7 +55,7 @@ module.exports = function(grunt) {
       },
 
       js: {
-        files: ['src/**/*.js', 'src/**/*.react.jsx'],
+        files: ['src/**/*.js', 'src/**/*.react.jsx', 'src/**/*.jsx'],
         tasks: ['browserify:development']
       },
 

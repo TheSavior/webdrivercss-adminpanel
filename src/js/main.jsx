@@ -3,11 +3,16 @@
 require('./polyfills/Object.assign');
 
 var React = require('react');
+var Router = require('react-router');
 var LifecycleActions = require('./actions/LifecycleActions');
-var App = React.createFactory(require('./components/App.react.jsx'));
+
+var routes = require('./Routes');
 
 var ApiHelper = require('./utils/ApiHelper');
 
 LifecycleActions.initialize();
 ApiHelper.getBranches();
-React.render(new App(), document.body);
+
+Router.run(routes, Router.HistoryLocation, function (Handler) {
+  React.render(<Handler />, document.body);
+});

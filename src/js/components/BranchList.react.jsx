@@ -1,6 +1,8 @@
 'use strict';
 
 var React = require('react');
+var Link = require('react-router').Link;
+
 
 var BranchList = React.createClass({
   propTypes: {
@@ -17,7 +19,7 @@ var BranchList = React.createClass({
     );
 
     var branchListItems = this.props.branches.map(function(branchName) {
-      return <li><a href={"/branch/" + branchName}>{branchName}</a></li>;
+      return <li><Link to="branch" params={{branchName: branchName}}>{branchName}</Link></li>;
     });
 
     var branchSelector = (

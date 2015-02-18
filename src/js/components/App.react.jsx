@@ -1,5 +1,7 @@
 'use strict';
 
+var RouteHandler = require('react-router').RouteHandler;
+
 var React = require('react');
 var Navbar = require('./Navbar');
 var BranchList = require('./BranchList');
@@ -27,9 +29,10 @@ var App = React.createClass({
 
   render: function() {
     return (
-      <div className="container" ng-view="">
+      <div className="container">
         <Navbar />
         <BranchList branches={this.state.branches} />
+        <RouteHandler/>
       </div>
       // <Navbar source={this.state.feed} />
     );
