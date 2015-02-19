@@ -7,7 +7,6 @@ var DefaultRoute = Router.DefaultRoute;
 
 var DiffList = require('../components/DiffList');
 var Intro = require('../components/Intro');
-
 var App = require('../components/App');
 
 module.exports = (

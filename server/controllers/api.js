@@ -86,10 +86,11 @@ exports.getBranches = function(req, res) {
 exports.getDiffs = function(req, res) {
     if (!req.query || !req.query.branchName) {
         res.send(500);
+        return;
     }
 
-    var master = path.join(imageRepo, mainBranch);
-    readDir.getImagesInBranch(master, function(err, images) {
+    var branchPath = path.join(imageRepo, mainBranch);
+    readDir.getImagesInBranch(branchPath, function(err, images) {
         if (err) {
             res.send(500);
             return;
@@ -106,6 +107,17 @@ exports.getDiffs = function(req, res) {
     // });
 
 
+};
+
+exports.getBranchImage = function(req, res) {
+    var params = req.params;
+    var filePath = path.join(imageRepo, params.branchName, params.browser, params.file);
+
+    res.sendfile(filePath, {}, function(err) {
+        if (err) {
+            return res.send(404);
+        }
+    });
 };
 
 exports.getImage = function(req, res) {

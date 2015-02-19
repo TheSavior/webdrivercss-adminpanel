@@ -11,6 +11,7 @@ module.exports = function(app) {
     // Server API Routes
     app.route('/api/getBranches').get(api.getBranches);
     app.route('/api/getDiffs').get(api.getDiffs);
+    app.route('/api/image/:branchName/:browser/:file').get(api.getBranchImage);
     // app.route('/api/:branchName/:file').get(api.downloadRepository);
     // app.route('/api/:project/:file').get(api.getImage);
     // app.route('/api/:project/diff/:diff').get(api.getImage);

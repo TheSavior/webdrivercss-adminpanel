@@ -3,6 +3,10 @@
 var React = require('react');
 
 var Navbar = React.createClass({
+  componentWillReceiveProps: function(nextProps) {
+    console.log('prop', nextProps);
+  },
+
   render: function() {
     return (
       // <div class="panel panel-default diffs" ng-repeat="diff in diffs">
