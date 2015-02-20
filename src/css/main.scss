@@ -100,19 +100,20 @@ imagediff {
     label {
         cursor: pointer;
     }
+
+    img {
+        max-width: 100%;
+    }
 }
 .diffs {
     .panel-heading {
         background-color: #d9534f;
     }
 }
+
 .shots {
     .panel-heading {
         background-color: #5cb85c;
-    }
-
-    img {
-        max-width: 100%;
     }
 }
 

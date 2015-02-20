@@ -144,7 +144,9 @@ ReadDir.prototype = {
                     cb(err, null);
                 }
 
-                ret.files = dir.files;
+                ret.files = dir.files.filter(function(fileName) {
+                    return fileName.split('.').length > 3;
+                });
                 cb(null, ret);
             });
         }).bind(this));

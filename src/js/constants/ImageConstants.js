@@ -3,5 +3,6 @@
 var keyMirror = require('react/lib/keyMirror');
 
 module.exports = keyMirror({
-  SET_BRANCHES: null
+  SET_BRANCHES: null,
+  SET_DIFFS: null
 });

@@ -5,9 +5,17 @@ var ImageConstants = require('../constants/ImageConstants');
 
 var FeedActions = {
   setBranches: function(branches) {
-    AppDispatcher.dispatchViewAction({
+    AppDispatcher.dispatchServerAction({
       type: ImageConstants.SET_BRANCHES,
       branches: branches
+    });
+  },
+
+  setDiffs: function(branchName, result) {
+    AppDispatcher.dispatchServerAction({
+      type: ImageConstants.SET_DIFFS,
+      branchName: branchName,
+      result: result
     });
   }
 };

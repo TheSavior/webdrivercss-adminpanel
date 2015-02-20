@@ -89,7 +89,9 @@ exports.getDiffs = function(req, res) {
         return;
     }
 
-    var branchPath = path.join(imageRepo, mainBranch);
+    var branchName = req.query.branchName;
+
+    var branchPath = path.join(imageRepo, branchName);
     readDir.getImagesInBranch(branchPath, function(err, images) {
         if (err) {
             res.send(500);
@@ -105,8 +107,6 @@ exports.getDiffs = function(req, res) {
     // readDir.listDirectory(master, function(err, dir) {
     //     console.log(dir);
     // });
-
-
 };
 
 exports.getBranchImage = function(req, res) {

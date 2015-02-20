@@ -7,15 +7,23 @@ var ImageConstants = require('../constants/ImageConstants');
 var CHANGE_EVENT = 'change';
 
 var _branches = [];
+var _diffs = {};
 
 function setBranches(branches) {
   _branches = branches;
 }
 
-var ImagesStore = Object.assign(EventEmitter.prototype, {
+function setDiffs(branchName, diffs) {
+  _diffs[branchName] = diffs;
+}
 
+var ImagesStore = Object.assign(EventEmitter.prototype, {
   getBranches: function() {
     return _branches;
+  },
+
+  getDiffsForBranch: function(branchName) {
+    return _diffs[branchName];
   },
 
   emitChange: function() {
@@ -38,6 +46,9 @@ AppDispatcher.register(function(action) {
   switch (payload.type) {
     case ImageConstants.SET_BRANCHES:
       setBranches(payload.branches);
+      break;
+    case ImageConstants.SET_DIFFS:
+      setDiffs(payload.branchName, payload.result);
       break;
     default:
       return true;

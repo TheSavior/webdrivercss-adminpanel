@@ -19,7 +19,7 @@ var BranchList = React.createClass({
     );
 
     var branchListItems = this.props.branches.map(function(branchName) {
-      return <li><Link to="branch" params={{branchName: branchName}}>{branchName}</Link></li>;
+      return <li key={branchName}><Link to="branch" params={{branchName: branchName}}>{branchName}</Link></li>;
     });
 
     var branchSelector = (
