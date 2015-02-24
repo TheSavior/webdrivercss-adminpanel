@@ -13,7 +13,7 @@ var Navbar = React.createClass({
     };
   },
 
-  componentWillReceiveProps: function() {
+  componentWillMount: function() {
     this.state.branchName = RouteStore.getState().params.branchName;
     var images = ImageStore.getDiffsForBranch(this.state.branchName);
 
