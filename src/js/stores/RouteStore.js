@@ -3,6 +3,7 @@
 var EventEmitter = require('events').EventEmitter;
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var LifecycleConstants = require('../constants/LifecycleConstants');
+var Immutable = require('immutable');
 
 var CHANGE_EVENT = 'change';
 
@@ -17,6 +18,14 @@ var RouteStore = Object.assign(EventEmitter.prototype, {
 
   getState: function() {
     return _state;
+  },
+
+  getRouteNames: function() {
+    var names = _state.routes.map(function(route) {
+      return route.name;
+    });
+
+    return Immutable.List(names);
   },
 
   emitChange: function() {
@@ -51,3 +60,4 @@ AppDispatcher.register(function(action) {
 });
 
 module.exports = RouteStore;
+window.store = RouteStore;

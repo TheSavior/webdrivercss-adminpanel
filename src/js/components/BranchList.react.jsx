@@ -2,6 +2,7 @@
 
 var React = require('react');
 var Link = require('react-router').Link;
+var RouteConstants = require('../constants/RouteConstants');
 
 
 var BranchList = React.createClass({
@@ -19,7 +20,7 @@ var BranchList = React.createClass({
     );
 
     var branchListItems = this.props.branches.map(function(branchName) {
-      return <li key={branchName}><Link to="branch" params={{branchName: branchName}}>{branchName}</Link></li>;
+      return <li key={branchName}><Link to={RouteConstants.BRANCH} params={{branchName: branchName}}>{branchName}</Link></li>;
     });
 
     var branchSelector = (
