@@ -18,7 +18,8 @@ var fs = require('fs-extra'),
     readDir = require('../utils/readDir'),
     // imageRepo = path.join(__dirname, '..', '..', '..', 'repositories');
     imageRepo = path.join(__dirname, '..', '..', 'repositories'),
-    mainBranch = 'master';
+    mainBranch = 'master',
+    resemble = require('node-resemble-js');
 
 exports.syncImages = function(req, res) {
 
@@ -107,6 +108,22 @@ exports.getDiffs = function(req, res) {
     // readDir.listDirectory(master, function(err, dir) {
     //     console.log(dir);
     // });
+};
+
+exports.getDiff = function(req, res) {
+    var params = req.params;
+    var oldFilePath = path.join(imageRepo, 'master', params.browser, params.file);
+    var newFilePath = path.join(imageRepo, params.branchName, params.browser, params.file);
+
+    resemble(oldFilePath)
+        .compareTo(newFilePath)
+        .onComplete(function(image) {
+            res.writeHead(200, {
+              'Content-Type' : 'image/png'
+            });
+
+            image.getDiffImage().pack().pipe(res);
+        });
 };
 
 exports.getBranchImage = function(req, res) {

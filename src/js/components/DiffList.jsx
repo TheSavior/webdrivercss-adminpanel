@@ -48,6 +48,7 @@ var Navbar = React.createClass({
                           <h3 className="panel-title">{fileName}</h3>
                         </div>
                         <div className="panel-body">
+                          <img src={Path.join('api', 'diff', this.state.branchName, browserName, fileName)} />
                           <img src={Path.join('api', 'image', this.state.branchName, browserName, fileName)} />
                           <img src={Path.join('api', 'image', 'master', browserName, fileName)} />
                         </div>
