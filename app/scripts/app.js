@@ -13,11 +13,11 @@ angular.module('webdrivercssAdminpanelApp', [
     $routeProvider.when('/', {
         templateUrl: 'partials/main',
         controller: 'MainCtrl',
-        resolve: { repositories: 'ImageRepository' }
-    }).when('/regression-tests/:id', {
-        templateUrl: 'partials/main',
-        controller: 'MainCtrl',
-        resolve: { repositories: 'ImageRepository' }
+        resolve: { branches: 'BranchesRepository' }
+    }).when('/regression-tests/:branchName', {
+        templateUrl: 'partials/diffs',
+        controller: 'DiffCtrl',
+        resolve: { images: 'ImageRepository' }
     }).otherwise({
         redirectTo: '/'
     });

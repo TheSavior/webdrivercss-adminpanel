@@ -3,7 +3,9 @@ public
 .tmp
 .sass-cache
 app/bower_components
+src/bower_components
 heroku
 /views
 dist
 repositories
+npm-debug.log

@@ -16,28 +16,36 @@ var fs = require('fs-extra'),
     targz = require('tar.gz'),
     async = require('async'),
     readDir = require('../utils/readDir'),
-    imageRepo = path.join(__dirname, '..', '..', '..', 'repositories');
+    // imageRepo = path.join(__dirname, '..', '..', '..', 'repositories');
+    imageRepo = path.join(__dirname, '..', '..', 'repositories'),
+    mainBranch = 'master',
+    resemble = require('node-resemble-js');
 
 exports.syncImages = function(req, res) {
 
-    if (!req.files) {
+    if (!req.files || !req.body.branchName) {
         return res.send(500);
     }
 
+
+    // We don't want to allow sub-folders
+    var branchName = req.body.branchName.replace('/', '-');
+    var branchFolder = path.join(imageRepo, branchName);
+
     fs.readFile(req.files.gz.path, function(err, data) {
-        var newPath = path.join(imageRepo, req.files.gz.name);
+        var newPath = path.join(branchFolder, req.files.gz.name);
 
         fs.remove(newPath.replace(/\.tar\.gz/, ''), function(err) {
             if (err) {
                 throw err;
             }
 
-            fs.writeFile(newPath, data, function(err) {
+            fs.outputFile(newPath, data, function(err) {
                 if (err) {
                     throw (err);
                 }
 
-                new targz().extract(newPath, imageRepo);
+                new targz().extract(newPath, branchFolder);
                 res.send(200);
             });
 
@@ -46,16 +54,87 @@ exports.syncImages = function(req, res) {
 
 };
 
-exports.getDirectoryList = function(req, res) {
+exports.getBranches = function(req, res) {
+    fs.readdir(imageRepo, function(err, files) {
+        var dirs = [];
 
-    readDir(imageRepo, function(err, list) {
+        var checkDirectory = function(file, filePath, isLast) {
+            fs.stat(filePath, function(err, stat) {
+
+                if (stat.isDirectory() && file !== mainBranch) {
+                    dirs.push(file);
+                }
+
+                if (isLast) {
+                    res.send(dirs);
+                }
+            });
+        };
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            if (file === '.') {
+                continue;
+            }
+
+            var filePath = path.join(imageRepo, file);
+            var isLast = (i === files.length - 1);
+            checkDirectory(file, filePath, isLast);
+        }
+    });
+};
+
+exports.getDiffs = function(req, res) {
+    if (!req.query || !req.query.branchName) {
+        res.send(500);
+        return;
+    }
+
+    var branchName = req.query.branchName;
+
+    var branchPath = path.join(imageRepo, branchName);
+    readDir.getImagesInBranch(branchPath, function(err, images) {
         if (err) {
-            throw err;
+            res.send(500);
+            return;
         }
 
-        res.send(list);
+        console.log(images);
+        res.send(images);
     });
 
+
+    // console.log('reading', master);
+    // readDir.listDirectory(master, function(err, dir) {
+    //     console.log(dir);
+    // });
+};
+
+exports.getDiff = function(req, res) {
+    var params = req.params;
+    var oldFilePath = path.join(imageRepo, 'master', params.browser, params.file);
+    var newFilePath = path.join(imageRepo, params.branchName, params.browser, params.file);
+
+    resemble(oldFilePath)
+        .compareTo(newFilePath)
+        .onComplete(function(image) {
+            res.writeHead(200, {
+              'Content-Type' : 'image/png'
+            });
+
+            image.getDiffImage().pack().pipe(res);
+        });
+};
+
+exports.getBranchImage = function(req, res) {
+    var params = req.params;
+    var filePath = path.join(imageRepo, params.branchName, params.browser, params.file);
+
+    res.sendfile(filePath, {}, function(err) {
+        if (err) {
+            return res.send(404);
+        }
+    });
 };
 
 exports.getImage = function(req, res) {
