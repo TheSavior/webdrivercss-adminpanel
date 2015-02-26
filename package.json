@@ -55,7 +55,6 @@
   },
   "scripts": {
     "postinstall": "bower install",
-    "test": "grunt test",
     "start": "grunt serve"
   }
 }
