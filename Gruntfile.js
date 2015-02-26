@@ -7,7 +7,8 @@ module.exports = function(grunt) {
       options: {
         transform: ['reactify'],
         browserifyOptions: {
-          extensions: ['.jsx', '.react.jsx']
+          extensions: ['.jsx', '.react.jsx'],
+          debug: true
         }
       },
 

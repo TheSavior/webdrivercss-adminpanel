@@ -4,9 +4,10 @@ var React = require('react');
 var ImageStore = require('../stores/ImageStore');
 var RouteStore = require('../stores/RouteStore');
 var ApiHelper = require('../utils/ApiHelper');
+var DiffSlider = require('./DiffSlider');
 var Path = require('path');
 
-var Navbar = React.createClass({
+var DiffList = React.createClass({
   getInitialState: function() {
     return {
       branchName: undefined
@@ -42,6 +43,8 @@ var Navbar = React.createClass({
               <div className="panel-body">
                 {
                   diffs.files.map((function(fileName) {
+                    var branchImage = Path.join('api', 'image', this.state.branchName, browserName, fileName);
+                    var masterImage = Path.join('api', 'image', 'master', browserName, fileName)
                     return (
                       <div key={fileName} className="panel panel-default diffs">
                         <div className="panel-heading">
@@ -49,8 +52,7 @@ var Navbar = React.createClass({
                         </div>
                         <div className="panel-body">
                           <img src={Path.join('api', 'diff', this.state.branchName, browserName, fileName)} />
-                          <img src={Path.join('api', 'image', this.state.branchName, browserName, fileName)} />
-                          <img src={Path.join('api', 'image', 'master', browserName, fileName)} />
+                          <DiffSlider image1Url={branchImage} image2Url={masterImage} />
                         </div>
                       </div>
                     );
@@ -74,4 +76,4 @@ var Navbar = React.createClass({
       // </div>
       // <div>foo</div>
 
-module.exports = Navbar;
+module.exports = DiffList;
