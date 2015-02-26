@@ -194,19 +194,10 @@ module.exports = function(grunt) {
     }, 500);
   });
 
+  grunt.registerTask('build', ['copy', 'sass:development', 'browserify:development']);
+  grunt.registerTask('serve', ['build', 'express:dev', 'express-keepalive']);
+
   grunt.registerTask('express-keepalive', 'Keep grunt running', function() {
     this.async();
-  });
-
-  grunt.registerTask('serve', function(target) {
-    if (target === 'dist') {
-      return grunt.task.run(['build', 'express:prod', 'express-keepalive']);
-    }
-
-    if (target === 'debug') {
-      return grunt.task.run(['concurrent:debug']);
-    }
-
-    grunt.task.run(['copy', 'sass:development', 'browserify:development', 'express:dev', 'watch']);
   });
 };
