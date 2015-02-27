@@ -7,5 +7,6 @@ src/bower_components
 heroku
 /views
 dist
-repositories
+repositories/
+backup_repositories/
 npm-debug.log

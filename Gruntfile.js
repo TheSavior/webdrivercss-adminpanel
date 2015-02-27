@@ -124,63 +124,14 @@ module.exports = function(grunt) {
       },
       prod: {
         options: {
-          script: 'dist/server.js',
+          script: 'server.js',
           node_env: 'production'
         }
       }
-    },
-
-    // Debugging with node inspector
-    'node-inspector': {
-      custom: {
-        options: {
-          'web-host': 'localhost'
-        }
-      }
-    },
-
-    // Use nodemon to run server in debug mode with an initial breakpoint
-    nodemon: {
-      debug: {
-        script: 'server.js',
-        options: {
-          nodeArgs: ['--debug-brk'],
-          env: {
-            PORT: process.env.PORT || 9000
-          },
-          callback: function(nodemon) {
-            nodemon.on('log', function(event) {
-              console.log(event.colour);
-            });
-
-            // opens browser on initial server start
-            nodemon.on('config:update', function() {
-              setTimeout(function() {
-                require('open')('http://localhost:8080/debug?port=5858');
-              }, 500);
-            });
-          }
-        }
-      }
-    },
-
-    // Run some tasks in parallel to speed up the build process
-    concurrent: {
-      debug: {
-        tasks: [
-          'nodemon',
-          'node-inspector'
-        ],
-        options: {
-          logConcurrentOutput: true
-        }
-      }
     }
-
   });
 
   require('load-grunt-tasks')(grunt);
-  require('time-grunt')(grunt);
 
   // Used for delaying livereload until after server has restarted
   grunt.registerTask('wait', function() {
@@ -196,6 +147,12 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', ['copy', 'sass:development', 'browserify:development']);
   grunt.registerTask('serve', ['build', 'express:dev', 'express-keepalive']);
+
+  grunt.registerTask('heroku:development', ['build']);
+  grunt.registerTask('heroku:production', ['build']);
+  grunt.registerTask('heroku', ['build']);
+
+  grunt.registerTask('default', ['serve', 'watch']);
 
   grunt.registerTask('express-keepalive', 'Keep grunt running', function() {
     this.async();
