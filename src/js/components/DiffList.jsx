@@ -51,8 +51,8 @@ var DiffList = React.createClass({
                           <h3 className="panel-title">{fileName}</h3>
                         </div>
                         <div className="panel-body">
-                          <img src={Path.join('api', 'diff', this.state.branchName, browserName, fileName)} />
-                          <DiffSlider image1Url={branchImage} image2Url={masterImage} />
+                          <img src={'http://0.0.0.0:9000/'+Path.join('api', 'diff', this.state.branchName, browserName, fileName)} />
+                          <DiffSlider image1Url={'http://0.0.0.0:9000/'+branchImage} image2Url={'http://0.0.0.0:9000/'+masterImage} />
                         </div>
                       </div>
                     );
