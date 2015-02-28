@@ -79,18 +79,6 @@ module.exports = function(grunt) {
           'dist/**/*.css'
         ]
       },
-
-      express: {
-        files: [
-          'server.js',
-          'server/**/*.{js,json}'
-        ],
-        tasks: ['express:dev', 'wait'],
-        options: {
-          livereload: true,
-          nospawn: true //Without this option specified express won't be reloaded
-        }
-      }
     },
 
     copy: {
@@ -111,50 +99,23 @@ module.exports = function(grunt) {
       }
     },
 
-    // Server stuff
-    express: {
-      options: {
-        port: process.env.PORT || 9000
-      },
+    'http-server': {
       dev: {
-        options: {
-          script: 'server.js',
-          debug: true
-        }
-      },
-      prod: {
-        options: {
-          script: 'server.js',
-          node_env: 'production'
-        }
+        root: 'dist',
+        port: 8282,
+        host: "0.0.0.0",
+        cache: 60,
+        showDir: false,
+        autoIndex: true,
+        ext: "html",
+        runInBackground: true
       }
     }
   });
 
   require('load-grunt-tasks')(grunt);
 
-  // Used for delaying livereload until after server has restarted
-  grunt.registerTask('wait', function() {
-    grunt.log.ok('Waiting for server reload...');
-
-    var done = this.async();
-
-    setTimeout(function() {
-      grunt.log.writeln('Done waiting!');
-      done();
-    }, 500);
-  });
-
   grunt.registerTask('build', ['copy', 'sass:development', 'browserify:development']);
-  grunt.registerTask('serve', ['build', 'express:dev', 'express-keepalive']);
 
-  grunt.registerTask('heroku:development', ['build']);
-  grunt.registerTask('heroku:production', ['build']);
-  grunt.registerTask('heroku', ['build']);
-
-  grunt.registerTask('default', ['serve', 'watch']);
-
-  grunt.registerTask('express-keepalive', 'Keep grunt running', function() {
-    this.async();
-  });
+  grunt.registerTask('default', ['build', 'http-server', 'watch']);
 };

@@ -1,12 +1,6 @@
-node_modules
-public
+node_modules/
 .tmp
 .sass-cache
-app/bower_components
-src/bower_components
-heroku
-/views
-dist
-repositories/
-backup_repositories/
+src/bower_components/
+dist/
 npm-debug.log

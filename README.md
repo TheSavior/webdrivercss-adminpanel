@@ -1,3 +1,8 @@
+More to come. The Admin panel for visual testing.
+
+All content below this is out of date. Based heavily off of https://github.com/webdriverio/webdrivercss-adminpanel
+
+
 ![alt text](http://www.christian-bromann.com/webdrivercss-adminpanel.png "WebdriverCSS Adminpanel")
 
 WebdriverCSS Adminpanel
