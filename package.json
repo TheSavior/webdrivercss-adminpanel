@@ -31,6 +31,7 @@
     "karma-browserify": "^4.0.0",
     "karma-chrome-launcher": "^0.1.7",
     "karma-cli": "0.0.4",
+    "karma-firefox-launcher": "^0.1.4",
     "karma-mocha": "^0.1.10",
     "karma-sinon": "^1.0.4",
     "mocha": "^2.1.0",
@@ -42,6 +43,7 @@
   },
   "scripts": {
     "postinstall": "bower install",
-    "start": "grunt serve"
+    "start": "grunt serve",
+    "test": "./node_modules/.bin/karma start --browsers Firefox --single-run"
   }
 }
