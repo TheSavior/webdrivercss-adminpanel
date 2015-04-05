@@ -29,6 +29,21 @@ module.exports = function(grunt) {
         files: {
           'dist/js/main.js': ['src/js/main.jsx']
         }
+      },
+
+      gruntfile: {
+        files: ['Gruntfile.js']
+      },
+
+      express: {
+        files: [
+          'server.js'
+        ],
+        tasks: ['express:dev'],
+        options: {
+          livereload: true,
+          spawn: false
+        }
       }
     },
 
@@ -71,7 +86,7 @@ module.exports = function(grunt) {
 
       livereload: {
         options: {
-          livereload: true,
+          livereload: 35728,
         },
 
         files: [
@@ -99,16 +114,22 @@ module.exports = function(grunt) {
       }
     },
 
-    'http-server': {
+    express: {
+      options: {
+        port: process.env.PORT || 8283
+      },
+
       dev: {
-        root: 'dist',
-        port: 8282,
-        host: "0.0.0.0",
-        cache: 60,
-        showDir: false,
-        autoIndex: true,
-        ext: "html",
-        runInBackground: true
+        options: {
+          script: 'server.js',
+        }
+      },
+
+      prod: {
+        options: {
+          script: 'server.js',
+          node_env: 'production'
+        }
       }
     }
   });
@@ -117,5 +138,5 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', ['copy', 'sass:development', 'browserify:development']);
 
-  grunt.registerTask('default', ['build', 'http-server', 'watch']);
+  grunt.registerTask('default', ['build', 'express:dev', 'watch']);
 };
