@@ -12,7 +12,7 @@ var App = require('../components/App');
 
 module.exports = (
   <Route name={RouteConstants.ROOT} path='/' handler={App}>
-    <Route name={RouteConstants.BRANCH} path='/branch/:branchName' handler={DiffList} />
+    <Route name={RouteConstants.BUILD} path='/:project/:build' handler={DiffList} />
     <DefaultRoute name={RouteConstants.INTRO} handler={Intro} />
   </Route>
 );

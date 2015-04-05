@@ -1,29 +1,39 @@
 'use strict';
 
+var assert = require('chai').assert;
 var EventEmitter = require('events').EventEmitter;
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var ImageConstants = require('../constants/ImageConstants');
 
 var CHANGE_EVENT = 'change';
 
-var _branches = [];
-var _diffs = {};
+var _projects = {};
 
-function setBranches(branches) {
-  _branches = branches;
-}
+function setBuildInfo(options) {
+  assert.isObject(options);
+  assert.isString(options.project);
+  assert.isString(options.build);
+  assert.isString(options.status);
+  assert.isObject(options.diffs);
 
-function setDiffs(branchName, diffs) {
-  _diffs[branchName] = diffs;
+  if(!_projects[options.project]) {
+    _projects[options.project] = {};
+  }
+
+  _projects[options.project][options.build] = options;
 }
 
 var ImagesStore = Object.assign(EventEmitter.prototype, {
-  getBranches: function() {
-    return _branches;
-  },
+  getBuildInfo: function(options) {
+    assert.isObject(options);
+    assert.isString(options.project);
+    assert.isString(options.build);
 
-  getDiffsForBranch: function(branchName) {
-    return _diffs[branchName];
+    if (!_projects[options.project]) {
+      return undefined;
+    }
+
+    return _projects[options.project][options.build];
   },
 
   emitChange: function() {
@@ -44,11 +54,8 @@ AppDispatcher.register(function(action) {
   var payload = action.payload;
 
   switch (payload.type) {
-    case ImageConstants.SET_BRANCHES:
-      setBranches(payload.branches);
-      break;
     case ImageConstants.SET_DIFFS:
-      setDiffs(payload.branchName, payload.result);
+      setBuildInfo(payload.options);
       break;
     default:
       return true;

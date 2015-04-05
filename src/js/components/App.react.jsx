@@ -4,12 +4,11 @@ var RouteHandler = require('react-router').RouteHandler;
 
 var React = require('react');
 var Navbar = require('./Navbar');
-var BranchList = require('./BranchList');
 var ImageStore = require('../stores/ImageStore');
 
 function getState() {
   return {
-    branches: ImageStore.getBranches()
+
   };
 }
 
@@ -31,7 +30,6 @@ var App = React.createClass({
     return (
       <div className="container">
         <Navbar />
-        <BranchList branches={this.state.branches} />
         <RouteHandler/>
       </div>
     );

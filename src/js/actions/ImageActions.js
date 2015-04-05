@@ -1,23 +1,22 @@
 'use strict';
 
+var assert = require('chai').assert;
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var ImageConstants = require('../constants/ImageConstants');
 
-var FeedActions = {
-  setBranches: function(branches) {
-    AppDispatcher.dispatchServerAction({
-      type: ImageConstants.SET_BRANCHES,
-      branches: branches
-    });
-  },
+var ImageActions = {
+  setDiffs: function(options) {
+    assert.isObject(options);
+    assert.isString(options.project);
+    assert.isString(options.build);
+    assert.isString(options.status);
+    assert.isObject(options.diffs);
 
-  setDiffs: function(branchName, result) {
     AppDispatcher.dispatchServerAction({
       type: ImageConstants.SET_DIFFS,
-      branchName: branchName,
-      result: result
+      options: options
     });
   }
 };
 
-module.exports = FeedActions;
+module.exports = ImageActions;
