@@ -4,10 +4,13 @@
   "description": "Admin panel for Visual Testing",
   "dependencies": {
     "async": "^0.9.0",
-    "bower": "^1.3.12",
+    "bluebird": "^2.9.34",
+    "bower": "^1.5.1",
     "browserify": "^8.1.3",
     "chai": "^2.2.0",
+    "compression": "^1.5.2",
     "express": "^4.12.3",
+    "findup": "^0.1.5",
     "flux": "^2.0.1",
     "grunt": "^0.4.5",
     "grunt-browserify": "^3.3.0",
@@ -22,6 +25,7 @@
     "immutable": "^3.6.2",
     "load-grunt-tasks": "~0.2.0",
     "lodash": "~2.4.1",
+    "merge": "^1.2.0",
     "react": "^0.12.2",
     "react-highlight": "^0.4.1",
     "react-router": "^0.12.0",
@@ -50,5 +54,8 @@
     "postinstall": "bower install",
     "start": "grunt",
     "test": "karma start --browsers Firefox --single-run"
+  },
+  "bin": {
+    "visualtesting-admin": "./bin/start.js"
   }
 }
