@@ -33,17 +33,6 @@ module.exports = function(grunt) {
 
       gruntfile: {
         files: ['Gruntfile.js']
-      },
-
-      express: {
-        files: [
-          'server.js'
-        ],
-        tasks: ['express:dev'],
-        options: {
-          livereload: true,
-          spawn: false
-        }
       }
     },
 
@@ -112,25 +101,6 @@ module.exports = function(grunt) {
           ]
         }]
       }
-    },
-
-    express: {
-      options: {
-        port: process.env.PORT || 8283
-      },
-
-      dev: {
-        options: {
-          script: 'server.js',
-        }
-      },
-
-      prod: {
-        options: {
-          script: 'server.js',
-          node_env: 'production'
-        }
-      }
     }
   });
 
@@ -138,5 +108,5 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', ['copy', 'sass:development', 'browserify:development']);
 
-  grunt.registerTask('default', ['build', 'express:dev', 'watch']);
+  grunt.registerTask('default', ['build', 'watch']);
 };
