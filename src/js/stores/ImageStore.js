@@ -14,7 +14,7 @@ function setBuildInfo(options) {
   assert.isString(options.project);
   assert.isString(options.build);
   assert.isString(options.status);
-  assert.isObject(options.diffs);
+  assert.isObject(options.diff);
 
   if(!_projects[options.project]) {
     _projects[options.project] = {};

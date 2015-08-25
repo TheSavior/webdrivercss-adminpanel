@@ -10,7 +10,7 @@ var ImageActions = {
     assert.isString(options.project);
     assert.isString(options.build);
     assert.isString(options.status);
-    assert.isObject(options.diffs);
+    assert.isObject(options.diff);
 
     AppDispatcher.dispatchServerAction({
       type: ImageConstants.SET_DIFFS,

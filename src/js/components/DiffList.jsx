@@ -51,7 +51,7 @@ var DiffList = React.createClass({
       return null;
     }
 
-    var diffs = this.state.buildInfo.diffs;
+    var diffs = this.state.buildInfo.diff;
 
     return (
       <div>
