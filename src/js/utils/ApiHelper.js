@@ -6,15 +6,21 @@ var Request = require('./Request');
 var superagent = require('superagent');
 require('superagent-as-promised')(superagent);
 
+var LifecycleActions = require('../actions/LifecycleActions');
 var ImageActions = require('../actions/ImageActions');
+var Config = require('../utils/Config');
 
-var api = 'http://0.0.0.0:9000/api/';
+function getApiUrl() {
+  return Config.getApiUrl() + '/api/';
+}
 
 var ApiHelper = {
   getDiffsForBuild: function(options) {
     assert.isObject(options);
     assert.isString(options.project);
     assert.isString(options.build);
+
+    var api = getApiUrl();
 
     superagent
     .get(api+'getBuild')
@@ -37,6 +43,8 @@ var ApiHelper = {
     assert.isString(options.project);
     assert.isString(options.build);
 
+    var api = getApiUrl();
+
     superagent
     .post(api+'confirm')
     .send({
@@ -52,6 +60,5 @@ var ApiHelper = {
     });
   }
 };
-
 
 module.exports = ApiHelper;

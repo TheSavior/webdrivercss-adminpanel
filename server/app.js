@@ -27,9 +27,15 @@ App.prototype = {
 
     instance.use(express.static(dist));
 
+    instance.route('/api/config').get(function(req, res) {
+      res.status(200).json({
+        apiUrl: config.getApiUrl()
+      });
+    });
+
     instance.get('*', function(req, res) {
-      res.sendFile(path.join(dist, 'index.html'), {
-        root: __dirname
+      res.sendFile('index.html', {
+        root: dist
       });
     });
 
