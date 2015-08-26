@@ -18,7 +18,6 @@ function App() {
 
 App.prototype = {
   useConfiguration: function(newConfig) {
-    console.log('conf');
     config = newConfig;
   },
 

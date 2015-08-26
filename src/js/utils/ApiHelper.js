@@ -11,7 +11,7 @@ var ImageActions = require('../actions/ImageActions');
 var Config = require('../utils/Config');
 
 function getApiUrl() {
-  return Config.getApiUrl() + '/api/';
+  return Config.getApiUrl() + 'api/';
 }
 
 var ApiHelper = {

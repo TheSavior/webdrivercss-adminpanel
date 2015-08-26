@@ -4,6 +4,7 @@ var React = require('react');
 var ImageStore = require('../stores/ImageStore');
 var RouteStore = require('../stores/RouteStore');
 var ApiHelper = require('../utils/ApiHelper');
+var Config = require('../utils/Config');
 var DiffSlider = require('./DiffSlider');
 var Path = require('path');
 
@@ -47,6 +48,8 @@ var DiffList = React.createClass({
       build: this.state.build
     });
 
+    var api = Config.getApiUrl();
+
     if (!this.state.buildInfo) {
       return null;
     }
@@ -73,8 +76,8 @@ var DiffList = React.createClass({
                             <h3 className="panel-title">{fileName}</h3>
                           </div>
                           <div className="panel-body">
-                            <img src={'http://0.0.0.0:9000/'+Path.join('api', 'diff', this.state.project, this.state.build, browserName, fileName)} />
-                            <DiffSlider image1Url={'http://0.0.0.0:9000/'+headImage} image2Url={'http://0.0.0.0:9000/'+baseImage} />
+                            <img src={api + Path.join('api', 'diff', this.state.project, this.state.build, browserName, fileName)} />
+                            <DiffSlider image1Url={api + headImage} image2Url={api + baseImage} />
                           </div>
                         </div>
                       );
