@@ -20,12 +20,10 @@ First download this repository:
 $ git clone git@github.com:webdriverio/webdrivercss-adminpanel.git
 ```
 
-Then download all Node.js and Bower dependencies:
+Then download all Node.js dependencies:
 
 ```sh
 $ npm install
-$ npm install -g grunt-cli
-$ bower install
 ```
 
 Last but not least start the application by running:
