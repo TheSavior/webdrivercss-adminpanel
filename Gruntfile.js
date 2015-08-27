@@ -97,7 +97,6 @@ module.exports = function(grunt) {
           src: [
             '*.{ico,png}',
             'index.html',
-            'bower_components/**/*'
           ]
         }]
       }
