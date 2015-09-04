@@ -56,5 +56,10 @@
   },
   "bin": {
     "visualtesting-admin": "./bin/start.js"
-  }
+  },
+  "files": [
+    "server",
+    "dist",
+    "bin"
+  ]
 }
